@@ -12,6 +12,8 @@ before_install:
   - npm install sequelize sequelize-cli mysql2 -g
   - sequelize db:migrate
   - sequelize db:seed:all
+script:
+  - echo "skipping tests"
 # 在執行測試之前的指令
 # before_script:
   
