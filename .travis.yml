@@ -9,12 +9,13 @@ env:
 # 在 install 前執行的指令
 before_install:
   - npm install -y
-  - uname
   - mysql -e 'CREATE DATABASE IF NOT EXISTS life_guard default character set utf8mb4 collate utf8mb4_unicode_ci;'
-  - npm install sequelize sequelize-cli mysql2 -g
-# 在執行測試之前的指令
-before_script:
+  - npm install sequelize-cli  -g
   - sequelize db:migrate
+  - sequelize db:seed:all
+# 在執行測試之前的指令
+# before_script:
+  
 deploy:
   provider: heroku
   api_key:
