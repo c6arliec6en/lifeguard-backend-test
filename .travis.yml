@@ -8,9 +8,8 @@ env:
   - NODE_ENV=test
 # 在 install 前執行的指令
 before_install:
-  - npm install -y
   - mysql -e 'CREATE DATABASE IF NOT EXISTS life_guard default character set utf8mb4 collate utf8mb4_unicode_ci;'
-  - npm install sequelize-cli  -g
+  - npm install sequelize sequelize-cli mysql2 -g
   - sequelize db:migrate
   - sequelize db:seed:all
 # 在執行測試之前的指令
