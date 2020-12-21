@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Image = sequelize.define('Image', {
+  const ArticleImage = sequelize.define('ArticleImage', {
     url: DataTypes.TEXT,
     mainImage: DataTypes.BOOLEAN,
     show: DataTypes.BOOLEAN,
     ArticleId: DataTypes.INTEGER,
   }, {});
-  Image.associate = function (models) {
+  ArticleImage.associate = function (models) {
     // associations can be defined here
-    Image.belongsTo(models.Article)
+    ArticleImage.belongsTo(models.Article)
   };
-  return Image;
+  return ArticleImage;
 };

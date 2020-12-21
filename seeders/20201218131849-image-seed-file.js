@@ -1,11 +1,14 @@
+
 'use strict';
+
+const { v4: uuidv4 } = require('uuid')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Images',
+    return queryInterface.bulkInsert('ArticleImages',
       Array.from({ length: 5 }).map((item, index) =>
         ({
-          id: index + 1,
+          articleImageId: uuidv4(),
           ArticleId: index + 1,
           url: 'https://fakeimg.pl/300/',
           mainImage: true,
@@ -17,6 +20,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Images', null, {});
+    return queryInterface.bulkDelete('ArticleImages', null, {});
   }
 };
