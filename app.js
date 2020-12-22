@@ -5,6 +5,7 @@ const articleRouter = require('./routes/article')
 const port = 3000
 
 app.use('/', articleRouter)
+app.use('/file', fileRouter)
 
 
 app.listen(port, () => {
