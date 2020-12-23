@@ -9,7 +9,9 @@ let articleController = {
       where: {
         category: category
       },
-      include: [{ model: ArticleImage }]
+      include: [{
+        model: ArticleImage
+      }]
     }).then(articles => {
       return res.json(articles)
     })

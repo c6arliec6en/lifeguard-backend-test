@@ -1,6 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Article = sequelize.define('Article', {
+    articleId: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID
+    },
     category: DataTypes.TEXT,
     title: DataTypes.TEXT,
     content: DataTypes.TEXT('long'),
