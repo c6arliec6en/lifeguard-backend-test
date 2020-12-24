@@ -12,8 +12,15 @@ let fileController = {
     let binaryData = fs.readFileSync(data)
     let base64Sring = new Buffer.from(binaryData).toString("base64")
     res.json(base64Sring)
+  },
+  getAllFiles: (req, res) => {
+    File.findAll({ where: { category: req.params.category } }).then(files => {
+      const data = files.map(f => {
+        return { fileId: f.fileId, title: f.title }
+      })
+      res.json(data)
+    })
   }
-
 }
 
 
