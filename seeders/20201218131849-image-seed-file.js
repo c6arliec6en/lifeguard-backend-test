@@ -18,7 +18,7 @@ module.exports = {
         ({
           articleImageId: uuidv4(),
           ArticleId: articleIdArray[index],
-          url: 'https://fakeimg.pl/300/',
+          url: 'upload/article_image/test.jpg',
           mainImage: true,
           show: true,
           createdAt: new Date(),
