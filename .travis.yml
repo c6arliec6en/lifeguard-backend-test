@@ -23,3 +23,4 @@ deploy:
   app: lifeguard2020
   on:
     repo: ZenYu-Tech/lifeguard-backend
+    branch: main

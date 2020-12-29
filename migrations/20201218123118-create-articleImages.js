@@ -8,7 +8,12 @@ module.exports = {
         type: Sequelize.UUID
       },
       ArticleId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        allowNull: false,
+        reference: {
+          model: 'Articles',
+          key: 'articleId'
+        }
       },
       url: {
         type: Sequelize.TEXT
