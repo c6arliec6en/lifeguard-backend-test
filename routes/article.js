@@ -2,8 +2,19 @@ const express = require('express')
 const router = express.Router()
 const articleController = require('../apis/articleController')
 // const userController = require('../apis/userController')
-// const multer = require('multer')
-// const upload = multer({ dest: 'temp/' })
+const multer = require('multer')
+const path = require('path')
+
+const storage = multer.diskStorage({
+  destination: './upload/article_image/',
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const upload = multer({
+  storage: storage
+}).array('image')
+
 // const passport = require('../config/passport')
 
 // const authenticated = passport.authenticate('jwt', { session: false })
@@ -12,5 +23,9 @@ const articleController = require('../apis/articleController')
 router.get('/article/:category', articleController.frontGetAllArticles)
 router.get('/article/:category/:articleId', articleController.frontGetArticle)
 
+//Back stage
+router.get('/manage/article/:category', articleController.backGetAllArticles)
+router.get('/manage/article/:category/:articleId', articleController.backGetArticle)
+router.post('/manage/article/:category/', upload, articleController.createArticle)
 
 module.exports = router
