@@ -4,22 +4,29 @@ const path = require('path')
 const { File } = db
 
 let fileController = {
+
   downloadFile: async (req, res) => {
+    try {
+      const file = await File.findOne({ where: { fileId: req.params.fileId } })
+      const data = path.join(__dirname, '..', file.url)
 
-    const file = await File.findOne({ where: { fileId: req.params.file_id } })
-    const data = path.join(__dirname, '..', file.url)
-
-    let binaryData = fs.readFileSync(data)
-    let base64Sring = new Buffer.from(binaryData).toString("base64")
-    res.json(base64Sring)
+      let binaryData = fs.readFileSync(data)
+      let base64String = new Buffer.from(binaryData).toString("base64")
+      res.json(base64String)
+    } catch (err) {
+      console.log(err)
+    }
   },
-  getAllFiles: (req, res) => {
-    File.findAll({ where: { category: req.params.category } }).then(files => {
+  getAllFiles: async (req, res) => {
+    try {
+      const files = await File.findAll({ where: { category: req.params.category } })
       const data = files.map(f => {
         return { fileId: f.fileId, title: f.title }
       })
       res.json(data)
-    })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 

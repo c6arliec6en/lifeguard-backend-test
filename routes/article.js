@@ -10,7 +10,7 @@ const articleController = require('../apis/articleController')
 
 //Front stage
 router.get('/article/:category', articleController.frontGetAllArticles)
-router.get('/article/:category/:article_id', articleController.frontGetArticle)
+router.get('/article/:category/:articleId', articleController.frontGetArticle)
 
 
 module.exports = router

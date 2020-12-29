@@ -9,7 +9,7 @@ const fileController = require('../apis/fileController')
 // const authenticated = passport.authenticate('jwt', { session: false })
 
 //Front stage
-router.get('/download/:file_id', fileController.downloadFile)
+router.get('/download/:fileId', fileController.downloadFile)
 router.get('/:category', fileController.getAllFiles)
 
 module.exports = router
