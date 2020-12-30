@@ -108,25 +108,105 @@ let articleController = {
     }
   },
   createArticle: async (req, res) => {
-    const { title, content } = req.body
-    const { files } = req
+    try {
+      const { title, content } = req.body
+      const category = req.params.category
+      const { files } = req
 
-    console.log(files, 'files')
+      const allArticles = await Article.findAll({ where: { category: category } })
 
-    const article = await Article.create({
-      articleId: uuidv4(),
-      title,
-      category: req.params.category,
-      content,
-    })
+      const article = await Article.create({
+        articleId: uuidv4(),
+        title,
+        category,
+        content,
+        sort: allArticles.length + 1,
+      })
 
-    console.log(article, 'article')
+      console.log(article, 'article')
 
+      for (i = 0; files.length > i; i++) {
+        await ArticleImage.create({
+          articleImageId: uuidv4(),
+          ArticleId: article.articleId,
+          url: files[i].path,
+          mainImage: true,
+        })
+      }
 
-    // const a = fs.createReadStream(files[0].path)
+      return res.json({
+        status: 'success',
+        message: 'create article successfully'
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  editArticle: async (req, res) => {
+    try {
+      const { title, content, mainImage, deleteImage } = req.body
+      const { articleId, category } = req.params
+      const { files } = req
 
-    // console.log(a, 'read')
+      let delImageArray = []
 
+      if (Array.isArray(deleteImage)) {
+        delImageArray = deleteImage
+      } else {
+        if (deleteImage) {
+          delImageArray.push(deleteImage)
+        }
+      }
+
+      const article = await Article.findOne({
+        where: { category: category, articleId: articleId }
+      })
+
+      const updateArticleText = await article.update({ title, content })
+
+      // console.log(updateArticleText, 'updateArticleText')
+
+      const articleImages = await ArticleImage.findAll({ where: { ArticleId: articleId } })
+
+      // console.log(articleImages, 'articleImage')
+
+      //hidden image
+      for (i = 0; articleImages.length > i; i++) {
+        delImageArray.forEach(async d => {
+          if (d === articleImages[i].articleImageId) {
+            const test = await articleImages[i].update({
+              mainImage: false,
+              show: false
+            })
+          }
+        })
+      }
+      //create image
+      for (i = 0; files.length > i; i++) {
+        await ArticleImage.create({
+          articleImageId: uuidv4(),
+          ArticleId: updateArticleText.articleId,
+          url: files[i].path,
+        })
+      }
+
+      //set main image
+      const updateImages = await ArticleImage.findAll({ where: { ArticleId: articleId, show: true } })
+      for (i = 0; updateImages.length > i; i++) {
+        if (updateImages[i].articleImageId !== mainImage) {
+          await updateImages[i].update({ mainImage: false })
+        } else {
+          await updateImages[i].update({ mainImage: true })
+        }
+      }
+
+      return res.json({
+        status: 'success',
+        message: 'edit article successfully'
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 

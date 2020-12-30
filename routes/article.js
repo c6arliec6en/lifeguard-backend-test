@@ -8,7 +8,8 @@ const path = require('path')
 const storage = multer.diskStorage({
   destination: './upload/article_image/',
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    const filename = file.originalname.split('.')
+    cb(null, filename[0] + '-' + Date.now() + '.' + filename[1])
   }
 })
 const upload = multer({
@@ -27,5 +28,6 @@ router.get('/article/:category/:articleId', articleController.frontGetArticle)
 router.get('/manage/article/:category', articleController.backGetAllArticles)
 router.get('/manage/article/:category/:articleId', articleController.backGetArticle)
 router.post('/manage/article/:category/', upload, articleController.createArticle)
+router.put('/manage/article/:category/:articleId', upload, articleController.editArticle)
 
 module.exports = router
