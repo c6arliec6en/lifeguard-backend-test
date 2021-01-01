@@ -12,23 +12,28 @@ const port = process.env.PORT || 3000
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-const whitelist = [
-  'http://localhost:3000'
-]
+//正式環境使用
+// const whitelist = [
+//   'http://localhost:8080'
+// ]
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || whitelist.indexOf(origin) !== -1) {
+//         callback(null, true)
+//       } else {
+//         callback(new Error('Not allowed by CORS'))
+//       }
+//     },
+//   })
+// )
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
+    origin: '*'
   })
 )
-
-
 
 app.use('/', articleRouter)
 app.use('/file', fileRouter)

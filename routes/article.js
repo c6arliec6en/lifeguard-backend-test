@@ -29,5 +29,6 @@ router.get('/manage/article/:category', articleController.backGetAllArticles)
 router.get('/manage/article/:category/:articleId', articleController.backGetArticle)
 router.post('/manage/article/:category/', upload, articleController.createArticle)
 router.put('/manage/article/:category/:articleId', upload, articleController.editArticle)
+router.delete('/manage/article/:category/:articleId', articleController.deleteArticle)
 
 module.exports = router

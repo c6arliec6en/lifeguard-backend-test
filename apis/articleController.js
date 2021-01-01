@@ -9,9 +9,9 @@ let articleController = {
     try {
       const articles = await Article.findAll({
         where: {
-          category: req.params.category
+          category: req.params.category, show: true
         },
-        attributes: ['articleId', 'title', 'content'],
+        attributes: ['articleId', 'title', 'content', 'category', 'createdAt'],
         include: [{
           model: ArticleImage,
           where: { mainImage: true },
@@ -32,7 +32,7 @@ let articleController = {
           mainImage: base64String
         }
       })
-
+      // res.type('application/json')
       return res.json(articleWithPicture)
     } catch (err) {
       console.log(err)
@@ -42,8 +42,8 @@ let articleController = {
   frontGetArticle: async (req, res) => {
     try {
       const article = await Article.findOne({
-        where: { category: req.params.category, articleId: req.params.articleId },
-        attributes: ['articleId', 'title', 'content'],
+        where: { category: req.params.category, articleId: req.params.articleId, show: true },
+        attributes: ['articleId', 'title', 'content', 'category', 'sort', 'createdAt'],
         include: [{
           model: ArticleImage,
           where: { show: true },
@@ -164,23 +164,8 @@ let articleController = {
 
       const updateArticleText = await article.update({ title, content })
 
-      // console.log(updateArticleText, 'updateArticleText')
 
-      const articleImages = await ArticleImage.findAll({ where: { ArticleId: articleId } })
 
-      // console.log(articleImages, 'articleImage')
-
-      //hidden image
-      for (i = 0; articleImages.length > i; i++) {
-        delImageArray.forEach(async d => {
-          if (d === articleImages[i].articleImageId) {
-            const test = await articleImages[i].update({
-              mainImage: false,
-              show: false
-            })
-          }
-        })
-      }
       //create image
       for (i = 0; files.length > i; i++) {
         await ArticleImage.create({
@@ -190,20 +175,59 @@ let articleController = {
         })
       }
 
-      //set main image
-      const updateImages = await ArticleImage.findAll({ where: { ArticleId: articleId, show: true } })
-      for (i = 0; updateImages.length > i; i++) {
-        if (updateImages[i].articleImageId !== mainImage) {
-          await updateImages[i].update({ mainImage: false })
+      const articleImages = await ArticleImage.findAll({ where: { ArticleId: articleId, show: true } })
+
+      //hidden image and set main image 
+      //需要辨識新增的圖案是否為main image 因為在前端新增的圖片沒有articleImageId
+      for (i = 0; articleImages.length > i; i++) {
+        delImageArray.forEach(async d => {
+          if (d === articleImages[i].articleImageId) {
+            await articleImages[i].update({
+              show: false
+            })
+          }
+        })
+
+        if (articleImages[i].articleImageId !== mainImage) {
+          await articleImages[i].update({ mainImage: false })
         } else {
-          await updateImages[i].update({ mainImage: true })
+          await articleImages[i].update({ mainImage: true })
         }
+
       }
+
+      //set main image
+      // const updateImages = await ArticleImage.findAll({ where: { ArticleId: articleId, show: true } })
+      // for (i = 0; updateImages.length > i; i++) {
+      //   if (updateImages[i].articleImageId !== mainImage) {
+      //     await updateImages[i].update({ mainImage: false })
+      //   } else {
+      //     await updateImages[i].update({ mainImage: true })
+      //   }
+      // }
 
       return res.json({
         status: 'success',
         message: 'edit article successfully'
       })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
+  deleteArticle: async (req, res) => {
+    try {
+      const article = await Article.findOne({ where: { category: req.params.category, articleId: req.params.articleId } })
+
+      await article.update({
+        show: false
+      })
+
+      return res.json({
+        status: 'success',
+        message: 'delete article successfully'
+      })
+
     } catch (err) {
       console.log(err)
     }
