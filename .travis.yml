@@ -19,8 +19,8 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: 294de0a4-0ad5-4a77-88e0-20aae9559363
-  app: lifeguard2020
+    secure: DEmFIQ84VC/RVsN77uSpoq1i+h++NtLlNspwH2Au9IPHvftsVYggvc/dJAkD3LgBfYM26XZENvTvfvdp+jSoy+LJqvBydjnjTamfkM6YM6lrzAvJLaQq7PDVSfSAGtgFikmbGP6F1ZvDp5TOr75mPm+hWwAriCPZGHEWsHR2gvSW6VKueMWkuiVzDG/GSTw1RLFkwDNYi/GTURVxGLooxx9rj540JQx3wrmHXara3ewi2su4mlaPAi0YdUUB9IDfcgTqb76k4fYuHh2o1Mft2sKi5PdfDJmgz+et6L9wPxeJOqFwiAceMMkpSC3pwp/O0fPQLV6l3KoHNxlhnK/I/IFhXrsKREHY1PeuhY49Gxpfgfvhi0V5TMbSwq5MdW8j1dWzHY2qT3aDx+lWI6CBwfXLgh/kZqCI7xtehsumKH5c9KEU0l9/qm5ezcDIBJq8VnBys2KVp3YcbAJclF3ob4IoBJYQ/sWsQdj9JJJ3UTs9C6u0gYoOx1WQ0iMEYThw/CvjG1AP6q+gDD4WllGtANyUns1zAp/NzGcWjhO62b0f2mG6xNyrNKoI6nZo53+jLI4Mownk1sneIIgFQr8MxwXwNH+fg10yqTIcfoN2ZC0z/vNLx81m0pR04+tsz/CbbjzQDiNkyZkThcWUigUvSkz7mJgY4pIIqsDbwwaCR3c=
+  app: lifeguard2021
   on:
-    repo: ZenYu-Tech/lifeguard-backend
+    repo: c6arliec6en/lifeguard-backend-test
     branch: main

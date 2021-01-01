@@ -27,6 +27,13 @@ let fileController = {
     } catch (err) {
       console.log(err)
     }
+  },
+  backGetAllFiles: (req, res) => {
+    try {
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
