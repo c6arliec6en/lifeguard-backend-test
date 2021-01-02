@@ -29,6 +29,8 @@ let articleController = {
           articleId: a.articleId,
           title: a.title,
           content: a.content,
+          category: a.category,
+          createdAt: a.createdAt,
           mainImage: base64String
         }
       })
