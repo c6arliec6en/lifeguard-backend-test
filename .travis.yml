@@ -13,14 +13,12 @@ before_install:
   - sequelize db:migrate
 script:
   - echo "skipping tests"
-  - ./gradlew test
 # 在執行測試之前的指令
 # before_script:
   
 deploy:
   provider: heroku
-  api_key:
-    secure: $HEROKU_API_KEY
+  api_key: $HEROKU_API_KEY
   app: lifeguard2021
   on:
     repo: c6arliec6en/lifeguard-backend-test
