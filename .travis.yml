@@ -19,7 +19,7 @@ script:
 deploy:
   provider: heroku
   skip_cleanup: true
-  api_key: $HEROKU_API_KEY
+  api_key: LlnP/g6LNQ3JCDcr/0Y2WPtHj6+4hwXj1t0oqYZXRTzItyFTc97MZfLO1jBsgbC9LmKkgETNsSXkp28xLP4Hkm3J4p7KgknrjMh/DaSWgxbggL3ZLSQMw1OqoEOdUk+9bYl01f8I/Yt/Ij3hndBJtsWq1m01ARdivHibf7Vbi3jza8YTaPR495vCXJQ/gdbTK1/Ok2VK127B2umFk2bta1XkwiccJHK9mi7xJ2nL1aj/4JZiL4FoJcInLXoyLdk0/rNhChfk8DXqoh/+IcLtK4WGkgtYlW1bBo8deq9g8NkPJtQYuG1pyB6UqRrrlo4J2IMJ70j1xXAuWv9RlVTayhu25AdFvvUwsubKpTusZkOeK8HjiB/uGZJ/grqmzCrv6sTwf0k21GZhrCF4/V6w8d7Dnzx77wVkxvUNKBoE1RC2oi3s8Rs918T+yWfRkwppZXi/xx6rIKDFTL+2+WDA8xdVMHDOZtwgg+30JASJ97l7ZzZpxBMh0SvQ98icP6QbQzCX/dtZ94ifIYdfsSsB9TM3T9G6tFwnZsxOCxVU3U/PpIIteJU+769nImQRl9wrw6AY7XmbElVKDFrwdztVq+z8mh/gi5D7OS2HzzI84qrLlSD9jrb9FodzDsic1q4JOOBnlYWrKBVU4t87FZUPpZaHBsQlPFfELtka5N7JIKg=
   app: lifeguard2021
   on:
     repo: c6arliec6en/lifeguard-backend-test
